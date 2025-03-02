@@ -4,6 +4,8 @@ macos
 web
 windows
 
+lib/hidden
+
 
 # Miscellaneous
 *.class
