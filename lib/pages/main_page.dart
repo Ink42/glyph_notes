@@ -1,10 +1,21 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:glyph_notes/widgets/gly_drawer.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+bool view =false;
+TextEditingController _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,57 +29,41 @@ class MainPage extends StatelessWidget {
         ],
       ),
 
-    );
-  }
+      body: Column(children: [
+Divider(),
+Row(children: [
+  IconButton(onPressed: (){}, icon: Icon(Icons.folder_outlined)),
+  IconButton(onPressed: (){}, icon: Icon(Icons.star_border_rounded)),
+  IconButton(onPressed: (){}, icon: Icon(Icons.add_link_sharp)),
+  CupertinoSwitch(value: view, onChanged: (val)=> setState(()=>view =!view))
+  ,
+  
+],),
+Divider()
+,
+ Expanded(
+            child: view
+                ? Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextField(
+                      controller: _textController,
+                      maxLines: null,
+                      expands: true,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Start writing your note...',
+                      ),
+                    ),
+                  )
+                :  Markdown(data: _textController.text))
+          
+
+
+      ],),
 
 
 
-}
-class GlyDrawer extends StatelessWidget {
-  const GlyDrawer({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context); // Closes the drawer
-                      },
-                      icon: const Icon(Icons.menu)),
-                  const Text("Notes Drawer", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  const Spacer(), // Pushes icons to the right
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.search_rounded)),
-                ],
-              ),
-              const Divider(),
-              // Wrapped in Expanded to prevent height issues
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 4,
-                  itemBuilder: (_, index) {
-                    return ListTile(
-                      title: Text("Note ${index + 1}"),
-                      onTap: () {
-                        // Handle note selection
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
