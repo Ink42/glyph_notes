@@ -15,9 +15,10 @@ void main() async{
   
   await Hive.openBox<Note>(noteBox);
   await Hive.openBox<Folder>(foldersBox);
+
   runApp(
+    
     MultiProvider(providers: [
-      // Provider<EditerMode>(create: (_) => EditerMode()),
       ChangeNotifierProvider<EditerMode>(create: (_)=>EditerMode())
     ]
     ,child: MyApp(),
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       home: MainPage(),
     );
