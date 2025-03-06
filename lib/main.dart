@@ -1,20 +1,18 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:glyph_notes/const/const.dart';
 import 'package:glyph_notes/model/note_model.dart';
 import 'package:glyph_notes/pages/main_page.dart';
 import 'package:glyph_notes/provider/editer_mode.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  
-  Hive.registerAdapter(NoteAdapter());
-  Hive.registerAdapter(FolderAdapter());
-  
-  await Hive.openBox<Note>(noteBox);
-  await Hive.openBox<Folder>(foldersBox);
+  WidgetsFlutterBinding.ensureInitialized();
+
+
 
   runApp(
     
@@ -32,10 +30,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DirectoryVerify();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       home: MainPage(),
     );
   }
+
+  void DirectoryVerify() async
+  {
+    // final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
+    
+    // log(appDocumentsDir.list().toList().toString());
+    
+    
+  
+  }
+
+
+
 }

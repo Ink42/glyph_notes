@@ -1,16 +1,73 @@
-# glyph_notes
+<!-- # glyph_notes
 
-A new Flutter project.
+Glyph Notes
 
-## Getting Started
+A lightweight, Markdown-powered note-taking app for developers and organized thinkers.
+Features
 
-This project is a starting point for a Flutter application.
+✨ Markdown Support – Write, format, and preview notes with ease using Markdown.
+📂 Structured Organization – Organize notes by projects, tags, or categories.
+🔍 Quick Search – Find notes instantly with powerful search functionality.
+⚡ Lightweight & Fast – Minimalist design with no bloat.
+📅 Task & Project Planning – Track goals, timelines, and tasks in a structured way.
+🔗 Code-Friendly – Syntax highlighting for better readability of code snippets.
+🌐 Cross-Platform – Available on desktop (Windows, macOS, Linux) and mobile (coming soon).
+P
+Getting Started
+Installation
 
-A few resources to get you started if this is your first Flutter project:
+    Download the latest release for your OS from Glyph Notes Releases.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    Install and launch the app.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    Start taking notes!
+
+Basic Usage
+
+    Create a new note: Ctrl/Cmd + N
+
+    Toggle Markdown preview: Ctrl/Cmd + P
+
+    Search notes: Ctrl/Cmd + F
+
+    Organize with folders/tags: Right-click in the sidebar.
+
+Example Note (Markdown)
+markdown
+Copy
+
+# Project Plan  
+
+**Goals for Q3:**  
+- [x] Research new API integrations  
+- [ ] Refactor legacy code  
+- [ ] Improve CI/CD pipeline  
+
+## Timeline  
+1. Planning – 1 week  
+2. Development – 3 weeks  
+3. Testing – 1 week  
+
+Why Glyph Notes?
+
+    For Developers – Built with code snippets, CLI commands, and technical workflows in mind.
+
+    For Project Managers – Keep meeting notes, timelines, and tasks in one place.
+
+    For Everyone – Simple enough for daily journaling, powerful enough for project docs.
+
+Roadmap
+
+    v1.1 – Cloud sync (Git, Dropbox, or custom backend).
+
+    v1.2 – Mobile apps (iOS & Android).
+
+    v1.3 – Plugin system for extended functionality.
+
+Contributing
+
+Want to improve Glyph Notes? Submit a PR or open an issue on GitHub.
+
+🚀 Happy Note-Taking!
+
+This README keeps it clean, developer-friendly, and highlights the app’s strengths while providing clear instructions. Would you like any refinements (e.g., more technical details, screenshots, or a CLI reference)? -->
