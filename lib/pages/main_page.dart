@@ -9,6 +9,9 @@ import 'package:glyph_notes/provider/file_manager.dart';
 import 'package:glyph_notes/widgets/gly_drawer.dart';
 import 'package:glyph_notes/widgets/options.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -42,23 +45,60 @@ class _MainPageState extends State<MainPage> {
     _debounceTimer = Timer(_saveDelay, _saveNote);
   }
 
+  @override
   Future<void> _loadNote() async {
- 
+    try {
+      final files = await _fileManager.listFiles('notes');
+      if (files.isNotEmpty) {
+        files.sort((a, b) => b.statSync().modified.compareTo(a.statSync().modified));
+        final recentFile = files.first as File;
+        final content = await recentFile.readAsString();
+        
+        setState(() {
+          _textController.text = content;
+          _titleController.text = path.basenameWithoutExtension(recentFile.path);
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading note: $e');
+    }
   }
 
   Future<void> _saveNote() async {
+    if (_titleController.text.isEmpty) {
+      _titleController.text = 'Untitled ${DateTime.now().toString()}';
+    }
+    
     try {
-      // final notesBox = Hive.box<Note>(noteBox);
-      // await notesBox.put('current_note', Note(
-      //   title: _titleController.text,
-      //   content: _textController.text,
-      //   lastModified: DateTime.now()
-      // )
+      await _fileManager.createMarkdownFile(
+        'notes', 
+        _titleController.text, 
+        _textController.text
+      );
       
-      _fileManager.createMarkdownFile("folderName", _titleController.text, _textController.text);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Note saved as ${_titleController.text}.md'),
+          duration: const Duration(seconds: 1),
+        )
+      );
     } catch (e) {
       debugPrint('Error saving note: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to save note'),
+          backgroundColor: Colors.red,
+        )
+      );
     }
+  }
+
+  Future<void> _syncNotes() async {
+
+  }
+
+  Future<void> _shareNote() async {
+
   }
 
   @override
@@ -68,14 +108,14 @@ class _MainPageState extends State<MainPage> {
     _titleController.removeListener(_onTextChanged);
     _textController.dispose();
     _titleController.dispose();
-    _saveNote(); 
+    // _saveNote(); 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer:  GlyDrawer(),
+      drawer:  GlyDrawer(),
       appBar: AppBar(
         title: _buildTitleField(context),
         centerTitle: true,
@@ -158,11 +198,8 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Future<void> _syncNotes() async {
-    
-  }
 
-  Future<void> _shareNote() async {
-    
-  }
 }
+
+
+

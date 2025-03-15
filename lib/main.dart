@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DirectoryVerify();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
@@ -38,15 +38,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void DirectoryVerify() async
-  {
-    // final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
-    
-    // log(appDocumentsDir.list().toList().toString());
-    
-    
   
-  }
 
 
 

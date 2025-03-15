@@ -83,11 +83,11 @@ alignment: Alignment.centerRight,
   }
 
   void _openFolder(BuildContext context) {
-    // Implement folder opening
+   
   }
 
   void _toggleFavorite(BuildContext context) {
-    // Implement favorite toggle
+
   }
 
   void _addLink(BuildContext context) {

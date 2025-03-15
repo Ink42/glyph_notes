@@ -28,8 +28,4 @@ Future<File> createTextFile(String folderName, String fileName, String content) 
 
 
 
-// Folder
-// File - edit
-// loads checks if contaner exisit if it does 
-////
 
