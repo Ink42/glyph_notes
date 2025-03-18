@@ -14,24 +14,29 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  Note? note;
+  MainPage(Note this.note, {super.key
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  late final TextEditingController _textController;
+  late final TextEditingController _textController ;
   late final TextEditingController _titleController;
   Timer? _debounceTimer;
   final Duration _saveDelay = const Duration(seconds: 2);
   final FileManager _fileManager = FileManager();
   @override
   void initState() {
+    log("cheking + ${widget.note!.title.toString() } ");
     super.initState();
-    _textController = TextEditingController(text:  '');
-    _titleController = TextEditingController(text:  '');
-    _loadNote();
+_textController = TextEditingController(text: widget.note!.content);
+_titleController = TextEditingController(text: widget.note!.title);
+    if (widget.note!.filePath == null) {
+  _loadNote();
+}
     _initAutoSave();
   }
 
@@ -64,34 +69,64 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  Future<void> _saveNote() async {
-    if (_titleController.text.isEmpty) {
-      _titleController.text = 'Untitled ${DateTime.now().toString()}';
+Future<void> _saveNote() async {
+  if (_titleController.text.isEmpty) {
+    _titleController.text = 'Untitled ${DateTime.now().toString()}';
+  }
+
+  try {
+    final fileManager = FileManager();
+    final String newTitle = _titleController.text;
+    final String newContent = _textController.text;
+
+    if (widget.note?.filePath != null) {
+      final oldFile = File(widget.note!.filePath!);
+      final oldTitle = path.basenameWithoutExtension(widget.note!.filePath!);
+      
+
+      if (oldTitle != newTitle) {
+        if (await oldFile.exists()) {
+          await oldFile.delete();
+        }
+      }
     }
     
-    try {
-      await _fileManager.createMarkdownFile(
-        'notes', 
-        _titleController.text, 
-        _textController.text
-      );
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Note saved as ${_titleController.text}.md'),
-          duration: const Duration(seconds: 1),
-        )
-      );
-    } catch (e) {
-      debugPrint('Error saving note: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Failed to save note'),
-          backgroundColor: Colors.red,
-        )
-      );
-    }
+
+    final newFilePath = await fileManager.createMarkdownFile(
+      'notes', 
+      newTitle, 
+      newContent
+    );
+    
+
+    widget.note = widget.note?.copyWith(
+      title: newTitle,
+      content: newContent,
+      lastModified: DateTime.now(),
+      filePath: newFilePath,
+    ) ?? Note(
+      title: newTitle,
+      content: newContent,
+      lastModified: DateTime.now(),
+      filePath: newFilePath,
+    );
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Note saved as ${newTitle}.md'),
+        duration: const Duration(seconds: 1),
+      )
+    );
+  } catch (e) {
+    debugPrint('Error saving note: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Failed to save note'),
+        backgroundColor: Colors.red,
+      )
+    );
   }
+}
 
   Future<void> _syncNotes() async {
 

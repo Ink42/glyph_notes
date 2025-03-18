@@ -19,23 +19,18 @@ class FileManager {
     }
   }
 
-  Future<File> createMarkdownFile(
-      String folderName, String fileName, String content) async {
-    try {
-      if (fileName.isEmpty) {
-        throw Exception('File name cannot be empty');
-      }
-      
-      final Directory dir = await _getOrCreateFolder(folderName);
-      final String safeFileName = _sanitizeFileName(fileName);
-      final File file = File(path.join(dir.path, '$safeFileName.md'));
-      
-      return await file.writeAsString(content);
-    } catch (e) {
-      debugPrint('Error creating markdown file: $e');
-      rethrow;
-    }
+ Future<String> createMarkdownFile(String directory, String fileName, String content) async {
+  final dir = await getApplicationDocumentsDirectory();
+  final folder = Directory('${dir.path}/$directory');
+  
+  if (!await folder.exists()) {
+    await folder.create(recursive: true);
   }
+  
+  final file = File('${folder.path}/$fileName.md');
+  await file.writeAsString(content);
+  return file.path;
+}
 
   Future<List<FileSystemEntity>> listFiles(String folderName) async {
     try {

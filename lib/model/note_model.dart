@@ -44,5 +44,20 @@ class Note {
       filePath: filePath,
     );
   }
+
+    Note copyWith({
+    String? title,
+    String? content,
+    DateTime? lastModified,
+    String? filePath,
+  }) {
+    return Note(
+      title: title ?? this.title,
+      content: content ?? this.content,
+      lastModified: lastModified ?? this.lastModified,
+      filePath: filePath ?? this.filePath,
+    );
+  }
+
 }
 

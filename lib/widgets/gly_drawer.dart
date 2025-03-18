@@ -57,46 +57,65 @@ class _GlyDrawerState extends State<GlyDrawer> {
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
+
             children: [
-              const SizedBox(height: 10),
-              Row(
+           
+            
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.menu),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.menu),
+                      ),
+                      const Text("Notes Drawer", 
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () => _createNewNote(context),
+                        icon: const Icon(Icons.add),
+                        tooltip: 'Create new note',
+                      ),
+                      IconButton(
+                        onPressed: () => _searchNotes(context),
+                        icon: const Icon(Icons.search_rounded),
+                        tooltip: 'Search notes',
+                      ),
+                    ],
                   ),
-                  const Text("Notes Drawer", 
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () => _createNewNote(context),
-                    icon: const Icon(Icons.add),
-                    tooltip: 'Create new note',
-                  ),
-                  IconButton(
-                    onPressed: () => _searchNotes(context),
-                    icon: const Icon(Icons.search_rounded),
-                    tooltip: 'Search notes',
+                  const Divider(),
+                  Expanded(
+                    child: _isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : RefreshIndicator(
+                            onRefresh: _loadNotes,
+                            child: ListView.builder(
+                              itemCount: _notes.length,
+                              itemBuilder: (_, index) {
+                                final note = _notes[index];
+                                return _buildNoteItem(context, note, screenSize);
+                              },
+                            ),
+                          ),
                   ),
                 ],
               ),
-              const Divider(),
-              Expanded(
-                child: _isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : RefreshIndicator(
-                        onRefresh: _loadNotes,
-                        child: ListView.builder(
-                          itemCount: _notes.length,
-                          itemBuilder: (_, index) {
-                            final note = _notes[index];
-                            return _buildNoteItem(context, note, screenSize);
-                          },
-                        ),
-                      ),
-              ),
+            
+             Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(                
+                height: screenSize.height*0.05,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  IconButton(onPressed: (){}, icon: Icon(Icons.grid_goldenratio_sharp)),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.settings)),
+                ],),
+                )),
             ],
           ),
         ),
@@ -150,7 +169,7 @@ class _GlyDrawerState extends State<GlyDrawer> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MainPage(),
+          builder: (context) => MainPage(newNote),
         ),
       );
     } catch (e) {
@@ -160,14 +179,14 @@ class _GlyDrawerState extends State<GlyDrawer> {
     }
   }
 
-  void _openNote(BuildContext context, Note note) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MainPage(),
-      ),
-    );
-  }
+void _openNote(BuildContext context, Note note) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => MainPage(note),
+    ),
+  ).then((_) => _loadNotes()); 
+}
 
   Future<void> _deleteNote(Note note, BuildContext context) async {
     final confirmed = await showDialog<bool>(

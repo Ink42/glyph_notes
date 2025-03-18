@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
-      home: MainPage(),
+      home: MainPage(Note(title: "", content: "", lastModified: DateTime.now())),
     );
   }
 
