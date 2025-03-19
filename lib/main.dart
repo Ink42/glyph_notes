@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:glyph_notes/const/const.dart';
 import 'package:glyph_notes/model/note_model.dart';
 import 'package:glyph_notes/pages/main_page.dart';
+import 'package:glyph_notes/pages/settings_page.dart';
 import 'package:glyph_notes/provider/editer_mode.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       home: MainPage(Note(title: "", content: "", lastModified: DateTime.now())),
+      
     );
   }
 

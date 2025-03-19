@@ -68,7 +68,8 @@ class OptionsBar extends StatelessWidget {
 alignment: Alignment.centerRight,
                       child: Container(
                         width: 100,
-                        color: Colors.red,
+                        color: Theme.of(context).scaffoldBackgroundColor
+                        ,
                         child: Switch(
                           value: editerMode.isEditMode,
                           onChanged: (value) => editerMode.toggleMode(),

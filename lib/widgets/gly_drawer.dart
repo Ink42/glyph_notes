@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:glyph_notes/pages/settings_page.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:glyph_notes/const/const.dart';
@@ -113,7 +114,9 @@ class _GlyDrawerState extends State<GlyDrawer> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                   IconButton(onPressed: (){}, icon: Icon(Icons.grid_goldenratio_sharp)),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.settings)),
+                  IconButton(onPressed: ()=> Navigator.push(context
+                  , MaterialPageRoute(builder: (_)=>SettingsPage())
+                  ), icon: Icon(Icons.settings)),
                 ],),
                 )),
             ],
