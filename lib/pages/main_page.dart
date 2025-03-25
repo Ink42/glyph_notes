@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:glyph_notes/const/const.dart';
 import 'package:glyph_notes/model/note_model.dart';
 import 'package:glyph_notes/provider/editer_mode.dart';
 import 'package:glyph_notes/provider/file_manager.dart';
@@ -10,7 +9,6 @@ import 'package:glyph_notes/widgets/gly_drawer.dart';
 import 'package:glyph_notes/widgets/options.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
 class MainPage extends StatefulWidget {

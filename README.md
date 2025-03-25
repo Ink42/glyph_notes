@@ -1,4 +1,4 @@
-<!-- # glyph_notes
+# glyph_notes
 
 Glyph Notes
 
@@ -12,8 +12,8 @@ Features
 📅 Task & Project Planning – Track goals, timelines, and tasks in a structured way.
 🔗 Code-Friendly – Syntax highlighting for better readability of code snippets.
 🌐 Cross-Platform – Available on desktop (Windows, macOS, Linux) and mobile (coming soon).
-P
-Getting Started
+
+<!-- Getting Started
 Installation
 
     Download the latest release for your OS from Glyph Notes Releases.
@@ -34,7 +34,8 @@ Basic Usage
 
 Example Note (Markdown)
 markdown
-Copy
+Copy -->
+
 
 # Project Plan  
 
@@ -42,7 +43,7 @@ Copy
 - [x] Research new API integrations  
 - [ ] Refactor legacy code  
 - [ ] Improve CI/CD pipeline  
-
+<!-- 
 ## Timeline  
 1. Planning – 1 week  
 2. Development – 3 weeks  
@@ -62,7 +63,7 @@ Roadmap
 
     v1.2 – Mobile apps (iOS & Android).
 
-    v1.3 – Plugin system for extended functionality.
+    v1.3 – Plugin system for extended functionality. -->
 
 Contributing
 
@@ -70,4 +71,3 @@ Want to improve Glyph Notes? Submit a PR or open an issue on GitHub.
 
 🚀 Happy Note-Taking!
 
-This README keeps it clean, developer-friendly, and highlights the app’s strengths while providing clear instructions. Would you like any refinements (e.g., more technical details, screenshots, or a CLI reference)? -->
