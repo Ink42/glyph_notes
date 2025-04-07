@@ -14,20 +14,20 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Glyph Notes Settings"),
+        title: const Text("Glyph Notes Settings"),
       ),
       body: SafeArea(
         child: Column(
           children: [
             ListTile(
-              title: Text("Appearance"),
+              title: const Text("Appearance"),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => _appearancePage()),
+                MaterialPageRoute(builder: (context) => const _AppearancePage()),
               ),
             ),
             ListTile(
-              title: Text("View Licenses"),
+              title: const Text("View Licenses"),
               onTap: () => showLicensePage(
                 context: context,
                 applicationName: "Glyph Notes",
@@ -35,17 +35,17 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             ListTile(
-              title: Text("Repositories"),
+              title: const Text("Repositories"),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => _repositoryPage()),
+                MaterialPageRoute(builder: (context) => const _RepositoryPage()),
               ),
             ),
             ListTile(
-              title: Text("About"),
+              title: const Text("About"),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => _aboutPage()),
+                MaterialPageRoute(builder: (context) => const _AboutPage()),
               ),
             ),
           ],
@@ -53,51 +53,101 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+}
 
-  Widget _repositoryPage() {
-    return Scaffold(
-      appBar: AppBar(title: Text("Repositories")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text("Gemini API-Key"),
-            SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Enter API key",
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+class _RepositoryPage extends StatefulWidget {
+  const _RepositoryPage();
+
+  @override
+  _RepositoryPageState createState() => _RepositoryPageState();
+}
+
+class _RepositoryPageState extends State<_RepositoryPage> {
+  final TextEditingController _textController = TextEditingController();
+  bool _isVisable = true;
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 
-  Widget _appearancePage() {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Appearance")),
-      body: Center(child: Text("Appearance settings go here.")),
-    );
-  }
-
-  Widget _aboutPage() {
-    return Scaffold(
-      appBar: AppBar(title: Text("About Glyph Notes")),
+      appBar: AppBar(title: const Text("Repositories")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Glyph Notes", style: Theme.of(context).textTheme.headlineMedium),
-            SizedBox(height: 10),
-            Text("Version: 0.3.6"),
-            SizedBox(height: 10),
-            Text("Glyph Notes is a minimal note-taking app built with Flutter."),
-            SizedBox(height: 20),
-            Text("Developer: BlankOP "),
-            Text("Contact: BlankOP@gmail.com"),
+            Text(
+              "Gemini API-Key",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _textController,
+              obscureText: _isVisable,
+              decoration: InputDecoration(
+                hintText: "Enter API key",
+                border: const OutlineInputBorder(),
+                prefixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _isVisable = !_isVisable;
+                    });
+                  },
+                  icon: Icon(
+                      _isVisable ? Icons.visibility_off : Icons.visibility),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AppearancePage extends StatelessWidget {
+  const _AppearancePage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Appearance")),
+      body: Column(children: [
+        ListTile(title: Text("App Theme"),subtitle: Text("Current app theme"),
+       
+        ),
+        ListTile(title: Text("Font Style"),subtitle: Text("Current font style"))
+      ],),
+    );
+  }
+}
+
+class _AboutPage extends StatelessWidget {
+  const _AboutPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("About Glyph Notes")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Glyph Notes",
+                style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 10),
+            const Text("Version: 0.3.6"),
+            const SizedBox(height: 10),
+            const Text("Glyph Notes is a minimal note-taking app built with Flutter."),
+            const SizedBox(height: 20),
+            const Text("Developer: BlankOP "),
+            const Text("Contact: BlankOP@gmail.com"),
           ],
         ),
       ),
