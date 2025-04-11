@@ -21,32 +21,40 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             ListTile(
               title: const Text("Appearance"),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const _AppearancePage()),
-              ),
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const _AppearancePage(),
+                    ),
+                  ),
             ),
             ListTile(
               title: const Text("View Licenses"),
-              onTap: () => showLicensePage(
-                context: context,
-                applicationName: "Glyph Notes",
-                applicationVersion: "1.0.0",
-              ),
+              onTap:
+                  () => showLicensePage(
+                    context: context,
+                    applicationName: "Glyph Notes",
+                    applicationVersion: "1.0.0",
+                  ),
             ),
             ListTile(
               title: const Text("Repositories"),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const _RepositoryPage()),
-              ),
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const _RepositoryPage(),
+                    ),
+                  ),
             ),
             ListTile(
               title: const Text("About"),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const _AboutPage()),
-              ),
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const _AboutPage()),
+                  ),
             ),
           ],
         ),
@@ -99,7 +107,8 @@ class _RepositoryPageState extends State<_RepositoryPage> {
                     });
                   },
                   icon: Icon(
-                      _isVisable ? Icons.visibility_off : Icons.visibility),
+                    _isVisable ? Icons.visibility_off : Icons.visibility,
+                  ),
                 ),
               ),
             ),
@@ -117,12 +126,19 @@ class _AppearancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Appearance")),
-      body: Column(children: [
-        ListTile(title: Text("App Theme"),subtitle: Text("Current app theme"),
-       
-        ),
-        ListTile(title: Text("Font Style"),subtitle: Text("Current font style"))
-      ],),
+      body: Column(
+        children: [
+          ListTile(
+            title: Text("App Theme"),
+            subtitle: Text("Current app theme"),
+            trailing: Icon(Icons.nightlight),
+          ),
+          ListTile(
+            title: Text("Font Style"),
+            subtitle: Text("Current font style"),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -139,12 +155,16 @@ class _AboutPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Glyph Notes",
-                style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              "Glyph Notes",
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 10),
             const Text("Version: 0.3.6"),
             const SizedBox(height: 10),
-            const Text("Glyph Notes is a minimal note-taking app built with Flutter."),
+            const Text(
+              "Glyph Notes is a minimal note-taking app built with Flutter.",
+            ),
             const SizedBox(height: 20),
             const Text("Developer: BlankOP "),
             const Text("Contact: BlankOP@gmail.com"),
